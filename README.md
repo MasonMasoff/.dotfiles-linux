@@ -60,13 +60,13 @@ git pull && cp resources/.stow-global-ignore ~ && stow .
 
 
 
-
+# NEED TO EDIT
 ### Installation Instructions (pre-SSH)
 1. `cd .dotfiles-linux`
 2. `chmod +x ./scripts/ssh-start.sh`
 3. Connect via SSH and resume install below
 
-### Installationn Instructions (post-SSH)
+### Installation Instructions (post-SSH)
 1. `chmod +x installs.sh && ./scripts/installs.sh`
 
 

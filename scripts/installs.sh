@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SSH Server Setup Script with Error Handling
+# Installation Script with Homebrew Support
 set -e  # Exit immediately if a command exits with a non-zero status
 
 # Colors for output
@@ -32,21 +32,113 @@ check_command() {
     fi
 }
 
-# Check if running as root or with sudo privileges
-if [ "$EUID" -ne 0 ]; then
-    print_error "This script requires sudo privileges. Please run with sudo or as root."
-    exit 1
+# Function to install Homebrew
+install_homebrew() {
+    print_status "Checking if Homebrew is installed..."
+    
+    if command -v brew >/dev/null 2>&1; then
+        print_status "Homebrew is already installed"
+        return 0
+    fi
+    
+    print_status "Installing Homebrew..."
+    
+    # Check if we have curl
+    if ! command -v curl >/dev/null 2>&1; then
+        print_error "curl is required to install Homebrew. Please install curl first."
+        exit 1
+    fi
+    
+    # Install Homebrew (this script handles its own sudo requirements)
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Add Homebrew to PATH for Linux
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        print_status "Adding Homebrew to PATH..."
+        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
+        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc 2>/dev/null || true
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
+    
+    # Verify installation
+    if command -v brew >/dev/null 2>&1; then
+        print_status "Homebrew installed successfully!"
+        brew --version
+        
+        # Print additional instructions for Linux users
+        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            echo ""
+            print_status "Additional setup instructions:"
+            echo -e "- Run this command in your terminal to add Homebrew to your PATH:"
+            echo -e "    eval \"\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\""
+            echo -e "- Install Homebrew's dependencies if you have sudo access:"
+            echo -e "    sudo apt-get install build-essential"
+        fi
+    else
+        print_error "Homebrew installation failed"
+        exit 1
+    fi
+}
+
+# Function to install from Brewfile
+install_from_brewfile() {
+    local brewfile_path="$1"
+    
+    if [ -z "$brewfile_path" ]; then
+        # Look for Brewfile in common locations
+        if [ -f "Brewfile" ]; then
+            brewfile_path="Brewfile"
+        elif [ -f "../Brewfile" ]; then
+            brewfile_path="../Brewfile"
+        elif [ -f "$HOME/Brewfile" ]; then
+            brewfile_path="$HOME/Brewfile"
+        else
+            print_warning "No Brewfile found. Skipping Brewfile installation."
+            return 0
+        fi
+    fi
+    
+    if [ ! -f "$brewfile_path" ]; then
+        print_warning "Brewfile not found at: $brewfile_path"
+        return 0
+    fi
+    
+    print_status "Installing packages from Brewfile: $brewfile_path"
+    
+    # Change to the directory containing the Brewfile
+    local brewfile_dir=$(dirname "$brewfile_path")
+    pushd "$brewfile_dir" > /dev/null
+    
+    if brew bundle install --file="$(basename "$brewfile_path")"; then
+        print_status "Successfully installed packages from Brewfile"
+    else
+        print_error "Failed to install some packages from Brewfile"
+        print_warning "Continuing with installation..."
+    fi
+    
+    popd > /dev/null
+}
+
+# Function to install Oh My Posh
+
+# Main installation function
+main() {
+    print_status "Starting installation script..."
+    echo ""
+    
+    # Install Homebrew
+    install_homebrew
+    
+    # Install from Brewfile
+    install_from_brewfile "$1"  # Pass first argument as Brewfile path
+    
+    print_status "Installation completed!"
+}
+
+# Check if script is being sourced or executed
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    # Script is being executed, not sourced
+    main "$@"
 fi
 
-print_status "Starting install script.sh"
-echo ""
 
-# Install Oh-My-ZSH
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Install Oh-My-ZSH Plugins
-echo "Installing Oh-my-zsh plugins"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/MichaelAquilina/zsh-you-should-use.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/you-should-use
