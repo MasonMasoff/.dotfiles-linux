@@ -1,1 +1,1 @@
-# .dotfiles-macOS
+# .dotfiles-linux
