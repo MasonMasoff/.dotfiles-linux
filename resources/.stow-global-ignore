@@ -1,0 +1,33 @@
+# Comments and blank lines are allowed.
+# LOOK AT README IF THIS DOESNT SEEM TO BE WORKING
+# --- Custom --- #
+README.md
+installs.sh
+ssh-start.sh
+/scripts
+/resources
+
+
+
+# --- Default --- #
+RCS
+.+,v
+
+CVS
+\.\#.+       # CVS conflict files / emacs lock files
+\.cvsignore
+
+\.svn
+_darcs
+\.hg
+
+\.git
+\.gitignore
+\.gitmodules
+
+.+~          # emacs backup files
+\#.*\#       # emacs autosave files
+
+^/README.*
+^/LICENSE.*
+^/COPYING
