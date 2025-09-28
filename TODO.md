@@ -1,5 +1,4 @@
-### Custom Theme
-- Create Custom theme and commit it to repo
+### p10k configuration
 
 ### Tailscale config with no secrets
 
