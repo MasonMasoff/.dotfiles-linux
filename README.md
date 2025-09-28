@@ -46,14 +46,14 @@ ssh <user>@<IP Address>
 cp ~/.dotfiles-linux/resources/.stow-global-ignore ~
 ```
 
-5. Remove the default `.zshrc` file in order to allow stow to work.
+5. Remove the default `.zshrc` file in order to allow stow to work. and stow files (stow manages symbolic links so the repo can be the source of truth)
 ```bash
-rm ~/.zshrc
+rm ~/.zshrc && stow .
 ```
 
-6. Stow files (stow manages symbolic links so the repo can be the source of truth)
+6. Restart your shell by either exiting and relaunching, or running:
 ```bash
-stow .
+source ~/.zshrc
 ```
 
 ## Updates
