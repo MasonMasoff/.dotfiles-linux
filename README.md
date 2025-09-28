@@ -3,22 +3,6 @@
 
 This directory contains the dotfiles for my linux systems
 
-## Requirements
-
-Ensure you have the following installed on your system
-
-### Git
-
-```
-apt install -y git
-```
-
-### Stow
-
-```
-apt install -y stow
-```
-
 ## Installation
 
 1. Check out the dotfiles repo in your $HOME directory using git
