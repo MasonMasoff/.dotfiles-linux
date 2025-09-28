@@ -267,6 +267,9 @@ if [ -f /etc/zsh_command_not_found ]; then
 fi
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+# Source custom aliases
+[[ -f ~/.aliases-custom.zsh ]] && source ~/.aliases-custom.zsh
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # Source powerlevel10k theme
