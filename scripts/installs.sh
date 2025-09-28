@@ -120,19 +120,6 @@ install_from_brewfile() {
     popd > /dev/null
 }
 
-# Function to install p10k with homebrew (Powerlevel10k)
-install_p10k() {
-    print_status "Installing Powerlevel10k..."
-    
-    if brew install romkatv/powerlevel10k/powerlevel10k; then
-        print_status "Powerlevel10k installed successfully!"
-        print_status "To configure Powerlevel10k, add the following to the end of your .zshrc:"
-        echo -e "${BLUE}source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme${NC}"
-    else
-        print_error "Failed to install Powerlevel10k"
-    fi
-}
-
 # Main installation function
 main() {
     print_status "Starting installation script..."
@@ -143,9 +130,6 @@ main() {
     
     # Install from Brewfile
     install_from_brewfile "$1"  # Pass first argument as Brewfile path
-
-    # Install Powerlevel10k
-    install_p10k
     
     print_status "Installation completed!"
     print_status "Please restart your terminal or run 'source ~/.zshrc' to apply changes."
