@@ -148,6 +148,7 @@ main() {
     install_p10k
     
     print_status "Installation completed!"
+    print_status "Please restart your terminal or run 'source ~/.zshrc' to apply changes."
 }
 
 # Check if script is being sourced or executed
