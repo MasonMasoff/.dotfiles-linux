@@ -1,50 +1,41 @@
 # .dotfiles-linux
-# My dotfiles
 
-This directory contains the dotfiles for my linux systems
+Linux system configurations and dotfiles managed with GNU Stow.
 
-## Installation
+## Prerequisites
+- Git
+- GNU Stow
+- ZSH shell
+- SSH client
 
-1. Check out the dotfiles repo in your $HOME directory using git
+## Quick Start
 ```bash
-git clone https://github.com/MasonMasoff/.dotfiles-linux.git
-cd .dotfiles-linux
-```
+# Clone and enter repository
+git clone https://github.com/MasonMasoff/.dotfiles-linux.git ~/.dotfiles-linux
+cd ~/.dotfiles-linux
 
-
-2. Go to the scripts folder and run `ssh-start.sh`
-```bash
+# Setup SSH
 chmod +x ./ssh-start.sh && ./ssh-start.sh
 
-```
+# Prepare and install dotfiles
+cp resources/.stow-global-ignore ~
+rm -f ~/.zshrc
+stow .
 
-
-3. Connect via SSH to the machine (optionally use VSCode Remote Explorer plugin)
-
-```bash
-ssh <user>@<IP Address>
-```
-
-4. Move the `.stow-global-ignore` file to the home directory (from testing, this cannot be sym-linked)
-```bash
-cp ~/.dotfiles-linux/resources/.stow-global-ignore ~
-```
-
-5. Remove the default `.zshrc` file in order to allow stow to work. and stow files (stow manages symbolic links so the repo can be the source of truth)
-```bash
-rm ~/.zshrc && stow .
-```
-
-6. Restart your shell by either exiting and relaunching, or running:
-```bash
+# Reload shell
 source ~/.zshrc
 ```
 
-## Updates
-1. Update the configuration with the line below
+## Maintenance
+
+Update configurations:
 ```bash
-git pull && cp ~/.dotfiles-linux/resources/.stow-global-ignore ~ && stow .
+cd ~/.dotfiles-linux && git pull && stow .
 ```
 
-## p10k configuration
-1. Optional: Configure a new layout for yourself by using: `p10k configure`
+## Shell Customization
+
+- View available aliases: `alias`
+- Customize p10k theme: `p10k configure`
+- Custom configurations can be added to `~/.alias-custom.zsh`
+- After any configuration changes, run `stow .` to update symlinks and `reload` to reload the ZSH shell
