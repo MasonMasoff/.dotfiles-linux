@@ -43,7 +43,7 @@ ssh <user>@<IP Address>
 
 4. Move the `.stow-global-ignore` file to the home directory (from testing, this cannot be sym-linked)
 ```bash
-cp resources/.stow-global-ignore ~
+cp ~/.dotfiles-linux/resources/.stow-global-ignore ~
 ```
 
 ## Updates
@@ -52,4 +52,5 @@ cp resources/.stow-global-ignore ~
 git pull && cp ~/.dotfiles-linux/resources/.stow-global-ignore ~ && stow .
 ```
 
-## p10k stuff
+## p10k configuration
+1. Optional: Configure a new layout for yourself by using: `p10k configure`
