@@ -1,3 +1,9 @@
 [user]
     name = Mason Garcia
     email = 43070886+MasonMasoff@users.noreply.github.com
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential

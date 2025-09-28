@@ -49,24 +49,7 @@ cp resources/.stow-global-ignore ~
 ## Updates
 1. Update the configuration with the line below
 ```bash
-git pull && cp resources/.stow-global-ignore ~ && stow .
+git pull && cp ~/.dotfiles-linux/resources/.stow-global-ignore ~ && stow .
 ```
 
-
-
-
-
-
-
-
-
-# NEED TO EDIT
-### Installation Instructions (pre-SSH)
-1. `cd .dotfiles-linux`
-2. `chmod +x ./scripts/ssh-start.sh`
-3. Connect via SSH and resume install below
-
-### Installation Instructions (post-SSH)
-1. `chmod +x installs.sh && ./scripts/installs.sh`
-
-
+## p10k stuff
