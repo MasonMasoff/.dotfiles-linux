@@ -14,8 +14,11 @@ Linux system configurations and dotfiles managed with GNU Stow.
 git clone https://github.com/MasonMasoff/.dotfiles-linux.git ~/.dotfiles-linux
 cd ~/.dotfiles-linux
 
-# Setup SSH
-chmod +x ./ssh-start.sh && ./ssh-start.sh
+# Setup and Run SSH
+chmod +x ./scripts/ssh-start.sh && ./scripts/ssh-start.sh
+
+# Setup and Run Installer Files
+chmod +x ./scripts/installs.sh && ./scripts/installs.sh
 
 # Prepare and install dotfiles
 cp resources/.stow-global-ignore ~
