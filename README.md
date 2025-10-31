@@ -27,6 +27,9 @@ stow .
 
 # Reload shell
 source ~/.zshrc
+
+# Change hostname (optional) - Reboot after for it to take effect
+sudo hostnamectl set-hostname <newhostname>
 ```
 
 ## Maintenance
