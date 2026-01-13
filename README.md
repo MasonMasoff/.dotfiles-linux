@@ -28,11 +28,14 @@ cp resources/.stow-global-ignore ~
 rm -f ~/.zshrc
 stow .
 
-# Set zsh as default shell (optional, requires re-login)
-chsh -s $(which zsh)
+# Switch to zsh shell
+zsh
 
-# Reload shell
+# Reload shell configuration
 source ~/.zshrc
+
+# Set zsh as default shell (optional, requires re-login to take effect)
+chsh -s $(which zsh)
 
 # Change hostname (optional) - Reboot after for it to take effect
 sudo hostnamectl set-hostname <newhostname>
