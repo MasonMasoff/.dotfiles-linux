@@ -33,6 +33,22 @@ check_command() {
     fi
 }
 
+# Function to install prerequisites for Ubuntu/Debian
+install_prerequisites() {
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        print_status "Installing prerequisites for Linux..."
+        
+        # Check if apt-get is available (Debian/Ubuntu)
+        if command -v apt-get >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y build-essential curl git zsh
+            check_command "Prerequisites installation"
+        else
+            print_warning "apt-get not found. Please install build-essential, curl, git, and zsh manually."
+        fi
+    fi
+}
+
 # Function to install Homebrew
 install_homebrew() {
     print_status "Checking if Homebrew is installed..."
@@ -65,16 +81,6 @@ install_homebrew() {
     if command -v brew >/dev/null 2>&1; then
         print_status "Homebrew installed successfully!"
         brew --version
-        
-        # Print additional instructions for Linux users
-        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            echo ""
-            print_status "Additional setup instructions:"
-            echo -e "- Run this command in your terminal to add Homebrew to your PATH:"
-            echo -e "    eval \"\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\""
-            echo -e "- Install Homebrew's dependencies if you have sudo access:"
-            echo -e "    sudo apt-get install build-essential"
-        fi
     else
         print_error "Homebrew installation failed"
         exit 1
@@ -125,6 +131,9 @@ main() {
     print_status "Starting installation script..."
     echo ""
     
+    # Install prerequisites (build-essential, curl, git, zsh)
+    install_prerequisites
+    
     # Install Homebrew
     install_homebrew
     
@@ -133,6 +142,13 @@ main() {
     
     print_status "Installation completed!"
     print_status "Please restart your terminal or run 'source ~/.zshrc' to apply changes."
+    
+    # Suggest changing default shell to zsh if installed
+    if command -v zsh >/dev/null 2>&1; then
+        echo ""
+        print_status "Zsh has been installed. To set it as your default shell, run:"
+        echo -e "    chsh -s \$(which zsh)"
+    fi
 }
 
 # Check if script is being sourced or executed
