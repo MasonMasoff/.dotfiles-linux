@@ -39,6 +39,9 @@ chsh -s $(which zsh)
 
 # Change hostname (optional) - Reboot after for it to take effect
 sudo hostnamectl set-hostname <newhostname>
+
+# Update apt and restart
+sudo apt update && sudo apt upgrade -y && reboot now
 ```
 
 ## What Gets Installed
