@@ -56,7 +56,7 @@ sudo hostnamectl set-hostname <newhostname>
 
 Update apt and restart
 ```bash
-sudo apt update && sudo apt upgrade -y && reboot now
+sudo apt update && sudo apt upgrade -y && sudo reboot now
 ```
 
 ## What Gets Installed
