@@ -78,7 +78,7 @@ The `installs.sh` script will install:
 
 Update configurations:
 ```bash
-cd ~/.dotfiles-linux && git pull && stow .
+cd ~/.dotfiles-linux && git pull && stow . && source ~/.zshrc
 ```
 
 ## Shell Customization
