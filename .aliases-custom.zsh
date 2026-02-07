@@ -3,7 +3,7 @@
 alias reload="source ~/.zshrc"
 alias dotfiles="cd ~/.dotfiles-linux"
 alias c="clear"
-alias cheatsheet="echo \"\$cheatsheet_content\""
+alias cheatsheet="grep -E '^##|^alias|^function|^[a-zA-Z0-9_-]+\(\)' ~/.aliases-custom.zsh"
 alias cdrepos='cd ~/Documents/Repos'
 alias python='python3'
 alias pip='pip3'
