@@ -11,50 +11,50 @@ The installation script will automatically install the following prerequisites o
 - `zsh` - Z shell
 
 ## Quick Start
-# Clone and enter repository
+### Clone and enter repository
 ```bash
 git clone https://github.com/MasonMasoff/.dotfiles-linux.git ~/.dotfiles-linux
 cd ~/.dotfiles-linux
 ```
 
-# Setup and Run SSH
+### Setup and Run SSH
 ```bash
 chmod +x ./scripts/ssh-start.sh && ./scripts/ssh-start.sh
 ```
 
-# Setup and Run Installer (installs prerequisites, Homebrew, and packages)
+### Setup and Run Installer (installs prerequisites, Homebrew, and packages)
 ```bash
 chmod +x ./scripts/installs.sh && ./scripts/installs.sh
 ```
 
-# Prepare and install dotfiles
+### Prepare and install dotfiles
 ```bash
 cp resources/.stow-global-ignore ~
 rm -f ~/.zshrc
 stow .
 ```
 
-# Switch to zsh shell
+### Switch to zsh shell
 ```bash
 zsh
 ```
 
-# Reload shell configuration
+### Reload shell configuration
 ```bash
 source ~/.zshrc
 ```
 
-# Set zsh as default shell (optional, requires re-login to take effect)
+### Set zsh as default shell (optional, requires re-login to take effect)
 ```bash
 chsh -s $(which zsh)
 ```
 
-# Change hostname (optional) - Reboot after for it to take effect
+### Change hostname (optional) - Reboot after for it to take effect
 ```bash
 sudo hostnamectl set-hostname <newhostname>
 ```
 
-# Update apt and restart
+### Update apt and restart
 ```bash
 sudo apt update && sudo apt upgrade -y && reboot now
 ```
